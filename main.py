@@ -31,8 +31,21 @@ print("""
 """)
 
 print("Welcome to CaveGame!")
+custLoac = input("Do you want to use the custom weather feature? (y or n)")
+if custLoac == "y":
+    return
+elif == "n":
+    weather(1)
 
-def weather():
+def getLoac():
+    pass
+
+def weather(defult):
+
+        if defult == 1:
+            lat = 40.6892
+            lon = 40.6892
+
         #dont steal my api key
         response = requests.get("https://api.openweathermap.org/data/2.5/weather?lat=43.033138&lon=-85.460312&appid=5362b9830508ec079bd2d89531909011&units=imperialkey 5362b9830508ec079bd2d89531909011")
 
@@ -47,7 +60,7 @@ def game():
     size = (700, 500)
     screen = pygame.display.set_mode(size)
      
-    pygame.display.set_caption("\U0001f600")
+    pygame.display.set_caption("CaveGame")
 
     done = False
      
