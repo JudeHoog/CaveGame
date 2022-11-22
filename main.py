@@ -10,10 +10,12 @@ ASCII art anamations
 music
 """
 import os
-os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
-import pygame
 import requests
- 
+import json
+import pygame
+
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
+
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
@@ -31,27 +33,26 @@ print("""
 """)
 
 print("Welcome to CaveGame!")
-custLoac = input("Do you want to use the custom weather feature? (y or n)")
-if custLoac == "y":
-    return
-elif == "n":
-    weather(1)
-
-def getLoac():
-    pass
+custLoac = input("Do you want to use the custom weather feature? (y or n): ")
 
 def weather(defult):
 
-        if defult == 1:
-            lat = 40.6892
-            lon = 40.6892
+        lat = "40.6892"
+        lon = "-74.0445"
 
         #dont steal my api key
-        response = requests.get("https://api.openweathermap.org/data/2.5/weather?lat=43.033138&lon=-85.460312&appid=5362b9830508ec079bd2d89531909011&units=imperialkey 5362b9830508ec079bd2d89531909011")
+        response = requests.get("https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid=5362b9830508ec079bd2d89531909011&units=imperial")
 
-        print(response.json())
+        responseParsed = json.loads(response)
 
-weather()
+        print(responseParsed)
+
+def getLoac(adress, state, zipCode):
+    AddrStr = ""
+    response = requests.get("https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address=9001+Conservtion+Ct+Ne%2C+Michigan%2C+49301&benchmark=2020&format=json")
+    
+    #print(response.json())
+    weather(0)
 
 def game():
 
@@ -81,4 +82,13 @@ def game():
      
     pygame.quit()
 
-game()
+#game()
+
+if custLoac == "y":
+    adress = str(input("Enter address(eg. 1 Hacker Way): "))
+    state = str(input("Enter State (eg. California): "))
+    zipCode = str(input("Enter ZipCode: "))
+    getLoac(adress, state, zipCode)
+elif custLoac == "n":
+    weather(1)
+
